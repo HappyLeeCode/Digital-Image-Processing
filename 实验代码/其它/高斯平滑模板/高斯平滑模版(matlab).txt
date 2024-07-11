@@ -1,0 +1,18 @@
+N=7;
+sigma = ((N-1)*0.5-1)*0.3+0.8;      %sigma标准差
+
+N_row = N;
+N_col = N;
+N_center= (N+1)*0.5;            
+
+%% 使用按照高斯公式写的高斯滤波模板
+G_ry = [];  % 根据高斯函数写的模板                                        
+for i=1:N_row
+    for j=1:N_col
+        distance_s=double((i-N_center)^2+(j-N_center)^2);%像素距离
+        G_ry(i,j)=exp(-distance_s/(2*sigma*sigma))/(2*pi*sigma*sigma);%高斯函数
+    end
+end
+G_ry=G_ry/sum(G_ry(:));
+
+disp(G_ry);
